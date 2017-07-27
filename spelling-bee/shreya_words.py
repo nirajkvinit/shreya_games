@@ -58,7 +58,8 @@ def getRandomWord(wordsList=None, beginsWith=None, wordLength=None):
 	if foundWord is not None:
 		if beginsWith is not None:
 			foundWord = foundWord if foundWord.startswith(beginsWith) else None
-
+			
+	if foundWord is not None:
 		if wordLength is not None:
 			foundWord = foundWord if len(foundWord) == int(wordLength) else None
 
@@ -79,9 +80,11 @@ def shreyaWordsGame(wordsList):
 		# Random Words
 		print('1. Random words.')
 		# Random words where the word begins with a desired letter
-		print('2. Random words of desired first letter.')
+		print('2. Random words of desired first alphabet.')
 		# Random words of desired length
-		print('3. Random words of desired word length. \n')
+		print('3. Random words of desired word length.')
+		# Random words of desired length and alphabet
+		print('4. Random words of desired word length and alphabet. \n')
 
 		print(colorama.Fore.WHITE + colorama.Back.RED + 'Press \'q\' to exit the game.')
 		print(colorama.Style.RESET_ALL)
@@ -99,7 +102,8 @@ def shreyaWordsGame(wordsList):
 
 		elif gameChoice == '3':		# 3. Random words of desired word length.
 			shreyaRandomWordsByLength(wordsList)
-
+		elif gameChoice == '4':		# 3. Random words of desired word length.
+			shreyaRandomWordsByLengthAlpha(wordsList)
 		else:
 			input('Your input was incorrect! Press \'Enter\' key to try again!')
 		
@@ -195,6 +199,83 @@ def shreyaRandomWordsByLetter(wordsList):
 			wordNotFoundLoopCount += 1
 			# get a random word
 			foundWord = getRandomWord(wordsList=wordsList, beginsWith=desiredAlphabet)
+			if foundWord is not None:
+				# Since word has been found. Reset the counter
+				wordNotFoundLoopCount = 0
+				# apend the found word to exercise list
+				getExerciseList(exerciseList, foundWord)
+				break
+			# Break the loop and exit the program if a word is not found after 1000 iteration
+			if wordNotFoundLoopCount > 1000:
+				input('Sorry! Words of ' + str(desiredAlphabet) + ' characters are not available. Press Enter to continue.')
+				foundWord = None
+				break;
+		
+		# Clear screen
+		if foundWord is not None:
+			# Print Found word!
+			printFoundWord(foundWord)
+
+		if wordNotFoundLoopCount > 1000:				
+			break;
+		
+		gameChoice = str(input(colorama.Fore.WHITE + colorama.Back.RED + 'Press \'Enter\' to continue or \'q\' to exit the game: ')).lower()
+		print(colorama.Style.RESET_ALL)
+
+		if gameChoice == 'q':
+			break;
+
+	saveExerciseFile(exerciseList)
+	return None	
+
+def shreyaRandomWordsByLengthAlpha(wordsList):
+	exerciseList = getExerciseList()
+
+	# Get desired Alphabet
+	while True:
+		try:			
+			clearScreen()
+			print('\n'*3)
+			desiredAlphabet = str(input('Please input an alphabet: '))
+			
+			# We are only going to generate words of minimum 1 and 14 letters
+			if len(desiredAlphabet) == 1 and desiredAlphabet.isalpha():
+				desiredAlphabet = desiredAlphabet.lower()
+				break;
+			else:
+				input("You must input an alphabet. Hit Enter to try again.")
+		
+		# In exception We will just ask the user to input correct number again
+		except Exception as ex:		
+			print('Error: ' + str(ex))
+
+	# Get desired word length
+	while True:
+		try:			
+			clearScreen()
+			print('\n'*3)
+			desiredWordLength = int(input('Please input a number between 1 and 14: '))
+			
+			# We are only going to generate words of minimum 1 and 14 letters
+			if desiredWordLength in range(1, 15):
+				break;
+			else:
+				input("You must input a number between 1 and 14. Hit Enter to try again.")
+		
+		# In exception We will just ask the user to input correct number again
+		except Exception as ex:		
+			print('Error: ' + str(ex))
+	
+	while True:
+
+		# Loop should not run indefinitely.
+		wordNotFoundLoopCount = 0
+
+		while True:
+			# Increase the counter if a word is not found
+			wordNotFoundLoopCount += 1
+			# get a random word
+			foundWord = getRandomWord(wordsList=wordsList, beginsWith=desiredAlphabet, wordLength=desiredWordLength)
 			if foundWord is not None:
 				# Since word has been found. Reset the counter
 				wordNotFoundLoopCount = 0

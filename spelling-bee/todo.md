@@ -3,6 +3,7 @@
 -[x] numbers range eg. [3-5]
 -[x] Words starts with a desired letter
 -[x] Clear Screen
+-[x] Get random word of a desired alphabet and of desired length
 -[ ] Input without enter
 -[ ] Make a module
 -[ ] Object Oriented
