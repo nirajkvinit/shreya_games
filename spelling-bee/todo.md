@@ -9,3 +9,4 @@
 -[ ] Object Oriented
 -[ ] Multiplayer
 -[ ] Multiplaye Points System
+-[x] pylint 10/10
