@@ -340,5 +340,6 @@ def save_exercise_list(exercisewords_list):
 		except OSError as ose:
 			print('Exercise File could not be created.' + str(ose))
 
-# Start the main game loop
-shreya_words_game(get_words_list())
+if __name__ == '__main__':
+	# Start the main game loop
+	shreya_words_game(get_words_list())
