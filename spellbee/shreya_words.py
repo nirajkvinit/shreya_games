@@ -27,7 +27,7 @@ def clear_screen():
 def get_words_list(words_file=None):
 	''' get words list from a file containing words '''
 	# File containing words
-	words_list_file = 'wordslist.csv'
+	words_list_file = os.path.join(os.path.dirname(__file__), 'wordslist.csv')
 	# Words List to be returned
 	words_list = None
 	# if words_file is not provided then use the default one
