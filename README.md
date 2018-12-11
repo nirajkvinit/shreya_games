@@ -1,5 +1,5 @@
 # shreya_games
-Building games for my daughter Shreya
+JUST A GAME
 
 -[x] Shreya Spelling Bee
 -[ ] Numbers Guessing Game
